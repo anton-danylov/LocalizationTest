@@ -1,0 +1,28 @@
+﻿<Window x:Class="LocalizationTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocalizationTest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="525">
+    <Window.Resources>
+        <local:RadioBoolToLanguageConverter x:Key="radioToLanguageConverter" />
+        <local:ResourceProvider x:Key="resourceProvider" />
+    </Window.Resources>
+    <Window.DataContext>
+        <local:MainWindowVM />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Margin="5">
+            <RadioButton IsChecked="{Binding SelectedLanguage, Converter={StaticResource radioToLanguageConverter}, ConverterParameter=English}">English</RadioButton>
+            <RadioButton IsChecked="{Binding SelectedLanguage, Converter={StaticResource radioToLanguageConverter}, ConverterParameter=Russian}">Russian</RadioButton>
+            <RadioButton IsChecked="{Binding SelectedLanguage, Converter={StaticResource radioToLanguageConverter}, ConverterParameter=Polish}">Polish</RadioButton>
+        </StackPanel>
+        <TextBlock Grid.Column="1" Text="{Binding Source={StaticResource resourceProvider}, Path=StringResources.Greeting}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"/>
+    </Grid>
+</Window>
